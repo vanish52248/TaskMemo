@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block main %}
+{% comment %} 
+クラス名をつけることでbootstrap対応させる
+{% endcomment %}
+<h1>Noteの一覧</h1>
+<a href="{% url 'note:note_create' %}" class="btn btn-outline-primary">登録</a>
+
+<table class="table table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Primary</th>
+        <th>Title</th>
+        <th>Links</th>
+    </tr>
+    {% for note in note_list  %}
+    <tr>
+        <td scope="row"><a href="{% url 'note:note_detail' pk=note.id %}">{{ note.id }}</a></td>
+        {% comment %} choicesが設定されているカラムのみに使用できるメソッド {% endcomment %}
+        {% comment %} １などの数字から重要などの文字列に変更してくれる {% endcomment %}
+        <td>{{note.get_score_display}}</td>
+        <td>{{note.title}}</td>
+        <td>
+            {% comment %} note_detailという名前のnote url+noteのそれぞれのIDをつける {% endcomment %}
+            <a href="{% url 'note:note_update' pk=note.id %}" class="btn btn-primary">編集</a>
+            {% comment %} 本当に削除するかを確認するJavascript {% endcomment %}
+            {% comment %} <a href="{% url 'note:note_delete' pk=note.id %}" class="btn btn-danger" onclick="return confirm('本当に削除しますか？');">削除</a> {% endcomment %}
+            <a href="{% url 'note:note_delete' pk=note.id %}" class="btn btn-danger">削除</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% comment %} ページング処理のインクルード {% endcomment %}
+{% include 'note/pagenate.html' %}
+
+{% endblock main %}

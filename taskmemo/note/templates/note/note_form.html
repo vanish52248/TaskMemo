@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+{% if note %}
+<h1>Noteの編集</h1>
+{% else %}
+<h1>Noteの作成</h1>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form }} 
+    <button type="submit" class="btn btn-primary">保存</button>
+</form>
+<a href="{% url 'note:note_list' %}" class="btn btn-secondary">戻る</a>
+{% endblock main %}

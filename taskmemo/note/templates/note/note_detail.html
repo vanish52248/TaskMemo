@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>Noteの詳細</h1>
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <td>{{note.id}}</td>
+    </tr>
+    <tr>
+        <th>Title</th>
+        <td>{{note.title}}</td>
+    </tr>
+    <tr>
+        <th>Score</th>
+        <td>{{note.get_score_display}}</td>
+    </tr>
+     {% comment %} <tr>
+        <th>作成日時</th>
+        <td>{{ note.created_at }}</td>
+    </tr>
+    <tr>
+        <th>更新日時</th>
+        <td>{{ note.updated_at }}</td>
+    </tr> {% endcomment %}
+</table>
+
+<h2>Text</h2>
+{% comment %} URLはハイパーリンクがつき、改行を含む文字列を入力すると<brタグ無くても>改行して表示させる。 {% endcomment %}
+<p>{{note.text | linebreaksbr | urlize}}</p>
+<a href="{% url 'note:note_list' %}" class="btn btn-secondary">戻る</a>
+{% endblock main %}
+

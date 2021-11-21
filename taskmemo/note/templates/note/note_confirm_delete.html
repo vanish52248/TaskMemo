@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>Noteの詳細</h1>
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <td>{{note.id}}</td>
+    </tr>
+    <tr>
+        <th>Title</th>
+        <td>{{note.title}}</td>
+    </tr>
+    <tr>
+        <th>Score</th>
+        <td>{{note.get_score_display}}</td>
+    </tr>
+</table>
+
+<h2>Text</h2>
+<p>{{note.text}}</p>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">削除</button>
+</form>
+
+<a href="{% url 'note:note_list' %}" class="btn btn-secondary">戻る</a>
+{% endblock main %}
+
